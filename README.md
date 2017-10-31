@@ -1,12 +1,14 @@
 # mhealthgen - Random health data generator
 
-__mhealthgen__ is a node.js library for generating realistic health-related
+__mhealthgen__ is a javascript library for generating realistic health-related
 information about a person in JSON format. The generated data include data
 types commonly recorded by modern consumer
 [mhealth](https://en.wikipedia.org/wiki/MHealth) devices, like Apple Watch,
-blood pressure cuffs, and patient diaries: blood pressure, calories burned,
-caloric intake, heart rate, height, weight, sleep, life satisfaction,
-prescriptions, clinic visits, diagnoses, and symptoms.
+blood pressure cuffs, and patient diaries. 
+
+This includes blood pressure, calories burned, caloric intake, heart rate,
+height, weight, sleep, life satisfaction, prescriptions, clinic visits,
+diagnoses, and symptoms.
 
 Example portion of some random data generated using mhealthgen:
 
@@ -25,6 +27,9 @@ Example portion of some random data generated using mhealthgen:
   "nodes": [
     { "date": "2016-10-27T15:23:58.320Z", "type": "hr", "source": "iwatch-hr", "value": 61 },
     { "date": "2016-10-28T00:13:53.190Z", "type": "sleep", "source": "fitbit-sleep", "value": 12.7 },
+    { "date": "2016-10-28T11:23:58.320Z", "type": "hr", "source": "iwatch-hr", "value": 81 },
+    { "date": "2016-10-28T11:24:53.223Z", "type": "hr", "source": "iwatch-hr", "value": 76 },
+    { "date": "2016-10-28T11:25:46.610Z", "type": "hr", "source": "iwatch-hr", "value": 68 },
     { "date": "2016-10-28T12:07:29.737Z", "type": "intake", "source": "fitbit - intake", "value": 2513 },
     { "date": "2016-10-29T22:19:42.538Z", "type": "weight", "source": "scales", "value": 95.5 },
     { "date": "2016-10-31T15:25:43.758Z", "type": "bp_diastolic", "source": "valuemed-bp", "value": 80 },
@@ -54,11 +59,19 @@ measurements mostly uses UK population averages.
 
 ## Installation
 
-Install node.js.
-
-Via npm:
+For use within node.js, install via npm:
 ```
 npm install mhealthgen
+```
+
+For use within browser via CDN:
+```html
+<script src="https://unpkg.com/mhealthgen"></script>
+```
+
+Or, install with bower:
+```bash
+bower install mhealthgen
 ```
 
 ## Usage
