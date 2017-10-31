@@ -1,0 +1,17 @@
+{
+  "name": "mhealthgen",
+  "description": "mhealthgen is a node.js library for generating realistic looking health-related information about a person in JSON format.",
+  "main": "mhealthgen.js",
+  "authors": [
+    "FlamingTempura"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/FlamingTempura/mhealthgen",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
