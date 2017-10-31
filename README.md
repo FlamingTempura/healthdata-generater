@@ -118,6 +118,7 @@ person to person. The values are generated in three stages:
 
 [//]: # (TYPES)
 ID | Name | Unit
+---
 weight | Body weight | kg
 sleep | Sleep | hours
 satisfaction | Life satisfaction | 
@@ -141,6 +142,7 @@ bp_diastolic | Diastolic blood pressure | mmHg
 
 [//]: # (SOURCES)
 ID | Name | Description | Types | Precision
+---
 palpitations |  |  | palpitations | 
 breathlessness |  |  | breathlessness | 
 scales |  |  | weight | 0.5
