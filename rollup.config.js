@@ -24,13 +24,15 @@ const generateDocs = () => {
 	let types = mhealthgen.types.map(t => `${t.id} | ${t.name || ''} | ${t.unit || ''}`);
 	let sources = mhealthgen.sources.map(s => `${s.id} | ${s.name || ''} | ${s.description || ''} | ${(s.types || []).join(', ')} | ${s.precision || ''}`);
 	readme = readme.replace(/\[\/\/\]: # \(TYPES\)[\w\W]*\[\/\/\]: # \(TYPES!\)/m, `[//]: # (TYPES)
+
 ID | Name | Unit
----
+---|------|------
 ${types.join('\n')}
 
 [//]: # (TYPES!)`).replace(/\[\/\/\]: # \(SOURCES\)[\w\W]*\[\/\/\]: # \(SOURCES!\)/m, `[//]: # (SOURCES)
+
 ID | Name | Description | Types | Precision
----
+---|------|-------------|-------|----------
 ${sources.join('\n')}
 
 [//]: # (SOURCES!)`);
