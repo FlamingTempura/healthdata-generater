@@ -178,4 +178,4 @@ if (typeof require !== 'undefined' && require.main === module) { // if CLI
 	fs.writeFileSync(argv.outfile, JSON.stringify(person, null, 2), 'utf8');
 }
 
-export default { generate };
+export default { generate, types, sources };

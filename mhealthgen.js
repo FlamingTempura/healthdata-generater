@@ -805,6 +805,8 @@
 		e.writeFileSync(n.outfile, JSON.stringify(t, null, 2), "utf8")
 	}
 	return {
-		generate: L
+		generate: L,
+		types: N,
+		sources: W
 	}
 });

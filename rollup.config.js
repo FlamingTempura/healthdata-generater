@@ -3,6 +3,8 @@ import babel from 'rollup-plugin-babel';
 import esformatter from 'rollup-plugin-esformatter';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
+import fs from 'fs';
+import mhealthgen from './src/index';
 
 const browsers = [
 	'Chrome >= 49',
@@ -18,13 +20,25 @@ const browsers = [
 ];
 
 const generateDocs = () => {
+	let readme = fs.readFileSync('README.md', 'utf8');
+	let types = mhealthgen.types.map(t => `${t.id} | ${t.name || ''} | ${t.unit || ''}`);
+	let sources = mhealthgen.sources.map(s => `${s.id} | ${s.name || ''} | ${s.description || ''} | ${(s.types || []).join(', ')} | ${s.precision || ''}`);
+	readme = readme.replace(/\[\/\/\]: # \(TYPES\)[\w\W]*\[\/\/\]: # \(TYPES!\)/m, `[//]: # (TYPES)
+ID | Name | Unit
+${types.join('\n')}
 
+[//]: # (TYPES!)`).replace(/\[\/\/\]: # \(SOURCES\)[\w\W]*\[\/\/\]: # \(SOURCES!\)/m, `[//]: # (SOURCES)
+ID | Name | Description | Types | Precision
+${sources.join('\n')}
+
+[//]: # (SOURCES!)`);
+	fs.writeFileSync('README.md', readme, 'utf8');
 };
 
 export default {
 	input: 'src/index.js',
 	plugins: [
-		//{ ongenerate: generateDocs },
+		{ ongenerate: generateDocs },
 		resolve({
 			browser: true
 		}),

@@ -116,12 +116,45 @@ person to person. The values are generated in three stages:
 
 ## Health datatypes
 
-[//]: # (DATATYPES)
-[//]: # (DATATYPES!)
+[//]: # (TYPES)
+ID | Name | Unit
+weight | Body weight | kg
+sleep | Sleep | hours
+satisfaction | Life satisfaction | 
+procedure | Clinical procedure | 
+prescription | Drug prescription | 
+palpitations | Palpitations | severity
+medicate | Dosage | %
+inr | International Normalized Ratio (INR) | 
+height | Height | cm
+hr | Heart rate | bpm
+diagnosis | Diagnosis | 
+intake | Caloric intake | kcal
+caloric_burn | Caloric burn | kcal
+breathlessness | Breathlessness | severity
+bp_systolic | Systolic blood pressure | mmHg
+bp_diastolic | Diastolic blood pressure | mmHg
+
+[//]: # (TYPES!)
 
 ## Sources
 
 [//]: # (SOURCES)
+ID | Name | Description | Types | Precision
+palpitations |  |  | palpitations | 
+breathlessness |  |  | breathlessness | 
+scales |  |  | weight | 0.5
+medicate |  |  | medicate | 0.01
+inr_reader |  |  | inr | 
+height manual |  |  | height | 0.5
+fitbit-step-counter | Fitbit Surge |  | caloric_burn | 
+fitbit-sleep | Fitbit Surge |  | sleep | 0.1
+fitbit - intake | Fitbit App |  | intake | 
+daylio - mood | Daylio app |  | satisfaction | 
+clinical-visit | Clinical visit | Visit to a clinic or hospital | diagnosis, procedure, prescription | 
+valuemed-bp | ValueMed Blood Pressure Cuff |  | bp_diastolic, bp_systolic | 2
+iwatch-hr | Apple Watch | Apple Watch smartwatch heart rate monitor. The heart rate is read using light sensors. | hr | 1
+
 [//]: # (SOURCES!)
 
 ## Todo
