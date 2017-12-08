@@ -1,0 +1,164 @@
+<html>
+<head>
+	<title>mhealthgen - Random Health Data Generator</title>
+	<style>
+		body {
+			font-family: Helvetica, sans-serif;
+			color: #333;
+		}
+		h1 {
+			font-weight: 100;
+		}
+		a {
+			color: #4183D7;
+		}
+		pre {
+			width: 100%;
+			background: #ECF0F1;
+			padding: 8px;
+		}
+		p, pre {
+			max-width: 780px;
+		}
+		input[type=button], input[type=submit] {
+			padding: 6px 40px;
+		}
+		table {
+			font-size: 13px;
+		}
+		#tabs > div {
+			display: inline-block;
+			width: 80px;
+			text-transform: uppercase;
+			font-size: 13px;
+			padding: 12px;
+			text-align: center;
+			cursor: pointer;
+		}
+		#tabs > div.active {
+			border-bottom: 3px solid #4183D7;
+		}
+		.line {
+			fill: none;
+			stroke: steelblue;
+			stroke-linejoin: round;
+			stroke-linecap: round;
+			stroke-width: 1.5;
+		}
+		text {
+			fill: #000;
+		}
+		.line.black {
+			stroke: #000;
+		}
+		.line.blue {
+			stroke: #89C4F4;
+		}
+		#results {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<h1>Random Health Data Generator</h1>
+	<p>This tool generates a random person's self-tracked data. <a href="https://github.com/FlamingTempura/mhealthgen">Instructions on GitHub</a>.</p>
+	<p>Tweak the options below and "Generate person":</p>
+
+	<input type="button" value="Randomize" onclick="randomize()">
+	<form name="options">
+		<table>
+			<tr>
+				<td colspan="3"><h3>Patient options</h3></td>
+				<td><h3>Data generation options</h3></td>
+			</tr>
+			<tr>
+				<td width="40">Sex</td>
+				<td width="80">
+					<label><input type="radio" name="sex" onchange="update()" value="male"> Male</label>
+					<label><input type="radio" name="sex" onchange="update()" value="female"> Female</label>
+				</td>
+				<td width="80" id="sex"></td>
+				<td width="80"><label><input type="checkbox" name="associatedImpacts"> Associated impacts</label></td>
+			</tr>
+			<tr>
+				<td>Birth date</td>
+				<td><input name="birthdate" type="date" min="0.1" max="10" step="0.1" onchange="update()"></td>
+				<td id="age"></td>
+				<td><label><input type="checkbox" name="otherImpacts"> Other impacts (noise)</label></td>
+			</tr>
+			<tr>
+				<td>Blood type</td>
+				<td>
+					<select name="bloodType">
+						<option value="a+">A+</option>
+						<option value="a-">A-</option>
+						<option value="b+">B+</option>
+						<option value="b-">B-</option>
+						<option value="o+">O+</option>
+						<option value="o-">O-</option>
+						<option value="ab+">AB+</option>
+						<option value="ab-">AB-</option>
+					</select>
+				</td>
+				<td id="bloodType"></td>
+				<td><label><input type="checkbox" name="runningAvg"> Moving average</label></td>
+			</tr>
+			<tr>
+				<td>Normal Height</td>
+				<td><input type="range" min="50" max="500" name="normalHeight"></td>
+				<td id="normalHeight"></td>
+			</tr>
+			<tr>
+				<td>Normal Weight</td>
+				<td><input type="range" min="20" max="500" step="0.1" name="normalWeight"></td>
+				<td id="normalWeight"></td>
+			</tr>
+			<tr>
+				<td>Normal Intake</td>
+				<td><input type="range" min="100" max="10000" name="normalIntake"></td>
+				<td id="normalIntake"></td>
+			</tr>
+			<tr>
+				<td>Normal Satisfaction</td>
+				<td><input type="range" min="0" max="1" step="0.01" name="normalSatisfaction"></td>
+				<td id="normalSatisfaction"></td>
+			</tr>
+			<tr>
+				<td>Normal Sleep Hours</td>
+				<td><input type="range" min="1" max="16" step="0.1" name="normalSleepHours"></td>
+				<td id="normalSleepHours"></td>
+			</tr>
+			<tr>
+				<td>Resting Heart Rate</td>
+				<td><input type="range" min="40" max="160" step="0.1" name="restingHeartRate"></td>
+				<td id="restingHeartRate"></td>
+			</tr>
+			<tr>
+				<td>Avg calory burn</td>
+				<td><input type="range" min="1500" max="3000" step="50" name="avgBurn"></td>
+				<td id="avgBurn"></td>
+			</tr>
+		</table>
+
+		<p><input type="submit" onclick="generate()" value="Generate person"></p>
+	</form>
+
+	<div id="results">
+		<h2>Results</h2>
+
+		<div id="tabs">
+			<div id="tab-charts" onclick="tab('charts')">Charts</div>
+			<div id="tab-data" onclick="tab('data')">Data</div>
+		</div>
+
+		<div class="tab" id="charts">
+		</div>
+		<pre class="tab" id="data">
+		</pre>
+	</div>
+
+	<script src="https://unpkg.com/mhealthgen"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.12.0/d3.js"></script>
+	<script src="main.js"></script>
+</body>
+</html>
