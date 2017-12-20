@@ -6,6 +6,8 @@ types commonly recorded by modern consumer
 [mhealth](https://en.wikipedia.org/wiki/MHealth) devices, like Apple Watch,
 blood pressure cuffs, and patient diaries. 
 
+[Try it out online](https://flamingtempura.github.io/mhealthgen/).
+
 This includes blood pressure, calories burned, caloric intake, heart rate,
 height, weight, sleep, life satisfaction, prescriptions, clinic visits,
 diagnoses, and symptoms.
