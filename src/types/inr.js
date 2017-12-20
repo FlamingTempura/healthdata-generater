@@ -3,6 +3,7 @@ import { bell, noise, DAY, YEAR } from '../utils';
 export default {
 	id: 'inr',
 	name: 'International Normalized Ratio (INR)',
+	description: 'The result (in seconds) for a prothrombin time performed on a normal individual will vary according to the type of analytical system employed.',
 	thresholds() {
 		return { min: 1.6, max: 8 };
 	},

@@ -4,7 +4,7 @@ export default {
 	id: 'sleep',
 	name: 'Sleep',
 	unit: 'hours',
-	
+	description: 'Number of hours slept',
 	thresholds() { return { min: 0, max: 24 }; },
 	initial(person, date) {
 		var sf = person.normalSleepHours / 6.3;

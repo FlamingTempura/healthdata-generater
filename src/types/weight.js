@@ -4,6 +4,7 @@ export default {
 	id: 'weight',
 	name: 'Body weight',
 	unit: 'kg',
+	description: 'Body weight measure',
 	thresholds() {
 		return { min: 2, max: 500 };
 	},

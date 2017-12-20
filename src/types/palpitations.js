@@ -4,6 +4,7 @@ export default {
 	id: 'palpitations',
 	name: 'Palpitations',
 	unit: 'severity',
+	description: 'An episode of irregular heart rhythm',
 	thresholds: function () {
 		return { min: 0 };
 	},

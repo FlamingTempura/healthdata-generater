@@ -4,6 +4,7 @@ export default {
 	id: 'bp_diastolic',
 	name: 'Diastolic blood pressure',
 	unit: 'mmHg',
+	description: 'Diastolic blood pressure',
 	thresholds() {
 		return { min: 30, max: 140 };
 	},

@@ -15,6 +15,7 @@ const diagnoses = [
 export default {
 	id: 'diagnosis',
 	name: 'Diagnosis',
+	description: 'A diagnosis made by a clinician.',
 	initial() {
 		return weightedPick(diagnoses);
 	}

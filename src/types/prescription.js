@@ -3,6 +3,7 @@ import { bell, noise, DAY } from '../utils';
 export default {
 	id: 'prescription',
 	name: 'Drug prescription',
+	description: 'A new prescription or change of a prescription for a drug',
 	thresholds() {
 		return { min: 0 };
 	},

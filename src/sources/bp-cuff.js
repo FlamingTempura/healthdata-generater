@@ -4,6 +4,7 @@ export default {
 	id: 'valuemed-bp',
 	name: 'ValueMed Blood Pressure Cuff',
 	types: ['bp_diastolic', 'bp_systolic'],
+	description: 'A cheap consumer blood pressure cuff.',
 	unit: 'mmHg',
 	reviewQuery: 'consumer blood pressure cuff',
 	precision: 2,

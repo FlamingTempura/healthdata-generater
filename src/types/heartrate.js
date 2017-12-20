@@ -4,6 +4,7 @@ export default {
 	id: 'hr',
 	name: 'Heart rate',
 	unit: 'bpm',
+	description: 'Heart rate',
 	thresholds(person, date) {
 		var age = person.age(date);
 		return { min: 40, max: 220 - age.years };

@@ -2,7 +2,7 @@
   "author": "FlamingTempura",
   "name": "mhealthgen",
   "homepage": "https://github.com/FlamingTempura/mhealthgen",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "mhealthgen is a node.js library for generating realistic looking health-related information about a person in JSON format.",
   "main": "mhealthgen.js",
   "jsnext:main": "src/index.js",
@@ -28,7 +28,7 @@
     "tap": "^10.7.2"
   },
   "scripts": {
-    "tap": "tap test/*",
+    "test": "tap test/*",
     "build": "rollup -c",
     "watch": "rollup -c -w"
   },

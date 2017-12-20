@@ -3,6 +3,7 @@ import { bell, noise, DAY } from '../utils';
 export default {
 	id: 'procedure',
 	name: 'Clinical procedure',
+	description: 'A clinical procedure, such as surgery or blood test.',
 	thresholds() {
 		return { min: 0 };
 	},

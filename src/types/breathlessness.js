@@ -4,6 +4,7 @@ export default {
 	id: 'breathlessness',
 	name: 'Breathlessness',
 	unit: 'severity',
+	description: 'An episode of breathlessness.',
 	thresholds() {
 		return { min: 0 };
 	},

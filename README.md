@@ -145,18 +145,18 @@ bp_diastolic | Diastolic blood pressure | mmHg
 
 ID | Name | Description | Types | Precision
 ---|------|-------------|-------|----------
-palpitations |  |  | palpitations | 
-breathlessness |  |  | breathlessness | 
-scales |  |  | weight | 0.5
-medicate |  |  | medicate | 0.01
-inr_reader |  |  | inr | 
-height manual |  |  | height | 0.5
-fitbit-step-counter | Fitbit Surge |  | caloric_burn | 
-fitbit-sleep | Fitbit Surge |  | sleep | 0.1
-fitbit - intake | Fitbit App |  | intake | 
-daylio - mood | Daylio app |  | satisfaction | 
+palpitations | Symptom diary | Person recorded an episode of palpitations. | palpitations | 
+breathlessness | Symptom diary | Person recorded an episode of breathlessness. | breathlessness | 
+scales | Weighing scales | Consumer analog weighing scales. | weight | 0.5
+medicate | Medication diary | The person took their medication and recorded it. | medicate | 0.01
+inr_reader | INR reader | Consumer INR reader. | inr | 
+height manual | Tape measure. | Tape measure. | height | 0.5
+fitbit-step-counter | Fitbit Surge | A wearable device which records steps through motion sensors. | caloric_burn | 
+fitbit-sleep | Fitbit Surge | A wearable device which records sleep through motion sensors. | sleep | 0.1
+fitbit - intake | Fitbit App | An app which can be used with the Fitbit device to record diet. | intake | 
+daylio - mood | Daylio app | A mood diary app. | satisfaction | 
 clinical-visit | Clinical visit | Visit to a clinic or hospital | diagnosis, procedure, prescription | 
-valuemed-bp | ValueMed Blood Pressure Cuff |  | bp_diastolic, bp_systolic | 2
+valuemed-bp | ValueMed Blood Pressure Cuff | A cheap consumer blood pressure cuff. | bp_diastolic, bp_systolic | 2
 iwatch-hr | Apple Watch | Apple Watch smartwatch heart rate monitor. The heart rate is read using light sensors. | hr | 1
 
 [//]: # (SOURCES!)

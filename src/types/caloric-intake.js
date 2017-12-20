@@ -4,6 +4,7 @@ export default {
 	id: 'intake',
 	name: 'Caloric intake',
 	unit: 'kcal',
+	description: 'Calories consumed.',
 	thresholds() {
 		return { min: 0 };
 	},

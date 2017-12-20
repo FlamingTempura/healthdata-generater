@@ -4,6 +4,7 @@ export default {
 	id: 'bp_systolic',
 	name: 'Systolic blood pressure',
 	unit: 'mmHg',
+	description: 'Systolic blood pressure',
 	thresholds() {
 		return { min: 50, max: 250 };
 	},

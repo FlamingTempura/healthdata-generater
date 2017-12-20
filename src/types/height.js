@@ -4,6 +4,7 @@ export default {
 	id: 'height',
 	name: 'Height',
 	unit: 'cm',
+	description: 'Height measurement',
 	thresholds(person) {
 		let sf = (person.sex === 'female' ? 0.96 : 1) * person.normalHeight / 167;
 		return {
