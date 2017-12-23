@@ -1,7 +1,6 @@
 import { id, seed, resetSeeds, pick, weightedPick, rand, DAY, MONTH, YEAR, strval, shuffle } from './utils';
 
-import s1 from './sources/symptom-palpitations.js';
-import s2 from './sources/symptom-breathlessness.js';
+import s1 from './sources/symptom-diary.js';
 import s3 from './sources/scales.js';
 import s4 from './sources/medicate.js';
 import s5 from './sources/inr-reader.js';
@@ -18,20 +17,20 @@ import t2 from './types/sleep.js';
 import t3 from './types/satisfaction.js';
 import t4 from './types/procedure.js';
 import t5 from './types/prescription.js';
-import t6 from './types/palpitations.js';
+import t6 from './types/symptom-palpitations.js';
 import t7 from './types/medicate.js';
 import t8 from './types/inr.js';
 import t9 from './types/height.js';
-import t10 from './types/heartrate.js';
+import t10 from './types/hr.js';
 import t11 from './types/diagnosis.js';
 import t12 from './types/caloric-intake.js';
 import t13 from './types/caloric-burn.js';
-import t14 from './types/breathlessness.js';
+import t14 from './types/symptom-breathlessness.js';
 import t15 from './types/bp-systolic.js';
 import t16 from './types/bp-diastolic.js';
 
 const types = [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16];
-const sources = [s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13];
+const sources = [s1, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13];
 
 const firstNames = {
 	male: ['James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Charles', 'Joseph', 'Thomas', 'Christopher', 'Daniel', 'Paul', 'Mark', 'Donald',
@@ -58,19 +57,19 @@ const generate = (options = {}) => {
 	if (!person.hasOwnProperty('lastName')) { person.lastName = pick(lastNames); }
 	if (!person.hasOwnProperty('birthdate')) { person.birthdate = new Date(Date.now() - rand(0, 70) * YEAR); }
 	if (!person.hasOwnProperty('bloodType')) { person.bloodType = weightedPick(bloodTypes); }
-	if (!person.hasOwnProperty('normalHeight')) { person.normalHeight = 150; }
-	if (!person.hasOwnProperty('normalWeight')) { person.normalWeight = 90; }
-	if (!person.hasOwnProperty('normalIntake')) { person.normalIntake = 2500; }
-	if (!person.hasOwnProperty('normalSatisfaction')) { person.normalSatisfaction = 0.5; }
-	if (!person.hasOwnProperty('normalSleepHours')) { person.normalSleepHours = 8; }
-	if (!person.hasOwnProperty('restingHeartRate')) { person.restingHeartRate = 60; }
-	if (!person.hasOwnProperty('avgBurn')) { person.avgBurn = rand(1500, 3000); } // how much physical activity do they do? 
 
 	seed(person.id); // deterministic randomness
 	
 	person.version++;
+	person.types = types.map(type => {
+		let existing = (person.types || []).find(t => t.id === type.id),
+			newtype = Object.assign({}, existing, type);
+		if (typeof newtype.thresholds === 'function') {
+			newtype.thresholds = type.thresholds(person);
+		}
+		return newtype;
+	});
 	person.sources = sources;
-	person.types = types;
 	person.nodes = [];
 	person.birthdate = new Date(person.birthdate);
 	person.age = date => {
@@ -81,24 +80,30 @@ const generate = (options = {}) => {
 			years: diff / YEAR
 		};
 	};
-	person.sample = (typeName, date, checkAssociations) => { // checkAssociations prevents cyclic recursion
-		let oldSeed = seed(strval(`${person.id}:type:${typeName}`)),
-			type = types.find(type => type.id === typeName),
-			value = type.initial(person, date);
+	person.sample = (typeId, date, checkAssociations = false) => { // checkAssociations prevents cyclic recursion
+		let oldSeed = seed(strval(`${person.id}:type:${typeId}`)),
+			type = person.types.find(type => type.id === typeId),
+			value = null;
+		if (type.thresholds && type.thresholds.hasOwnProperty('normal')) {
+			value = type.thresholds.normal;
+		}
+		if (type.initial) {
+			value = type.initial(person, date, value);
+		}
 		if (type.associations && checkAssociations && associations) {
 			value = type.associations(person, date, value);
 		}
 		if (type.fluctuations && fluctuations) {
 			value = type.fluctuations(person, date, value);
 		}
-		if (type.thresholds) {
-		 	let thresholds = type.thresholds(person, date);
-			if (thresholds.max) {
-				value = Math.min(thresholds.max, value);
-			}
-			if (thresholds.min) {
-				value = Math.max(thresholds.min, value);
-			}
+		if (!checkAssociations) {
+			//console.log(value);
+		}
+		if (type.thresholds && type.thresholds.hasOwnProperty('max')) {
+			value = Math.min(type.thresholds.max, value);
+		}
+		if (type.thresholds && type.thresholds.hasOwnProperty('min')) {
+			value = Math.max(type.thresholds.min, value);
 		}
 		seed(oldSeed);
 		return value;
@@ -116,16 +121,18 @@ const generate = (options = {}) => {
 			let date = new Date(timestamp);
 			types_.forEach(type => {
 				let value = person.sample(type.id, date, true);
-				if (source.precision) {
+				if (source.hasOwnProperty('precision')) {
 					let decimalplaces = (source.precision + '.').split('.')[1].length;
-					value = Number((Math.round(value * 1 / source.precision) * source.precision).toFixed(decimalplaces)); // prevent floating point errors (eg 1.00000001)
+					value = (Math.round(value / source.precision) * source.precision).toFixed(decimalplaces); // prevent floating point errors (eg 1.00000001)
 				}
-				person.nodes.push({
-					date,
-					type: type.id,
-					source: source.id,
-					value
-				});
+				if (!type.filter || type.filter && type.filter(value)) {
+					person.nodes.push({
+						date,
+						type: type.id,
+						source: source.id,
+						value
+					});
+				}
 			});
 			timestamp += source.next(date);
 		}
@@ -139,7 +146,7 @@ const generate = (options = {}) => {
 		};
 	});
 
-	person.nodes = person.nodes.sort((n1, n2) => n1.date.getTime() - n2.date.getTime());
+	person.nodes = person.nodes.sort((n1, n2) => n1.date - n2.date);
 
 	return person;
 };

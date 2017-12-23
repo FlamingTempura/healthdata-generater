@@ -1,6 +1,7 @@
 import { weightedPick } from '../utils';
 
 const diagnoses = [
+	[null, 10],
 	['obesity', 1],
 	['heart failure', 1],
 	['hypertension', 1],
@@ -16,7 +17,6 @@ export default {
 	id: 'diagnosis',
 	name: 'Diagnosis',
 	description: 'A diagnosis made by a clinician.',
-	initial() {
-		return weightedPick(diagnoses);
-	}
+	initial() { return weightedPick(diagnoses); },
+	filter(val) { return val !== null; }
 };

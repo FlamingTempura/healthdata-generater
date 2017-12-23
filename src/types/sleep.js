@@ -1,13 +1,19 @@
-import { bell, noise, DAY, MONTH, YEAR } from '../utils';
+import { rand, bell, noise, DAY, MONTH, YEAR } from '../utils';
 
 export default {
 	id: 'sleep',
 	name: 'Sleep',
 	unit: 'hours',
 	description: 'Number of hours slept',
-	thresholds() { return { min: 0, max: 24 }; },
-	initial(person, date) {
-		var sf = person.normalSleepHours / 6.3;
+	thresholds() {
+		return {
+			min: 0,
+			normal: Math.round(rand(6, 9)),
+			max: 24
+		};
+	},
+	initial(person, date, value) {
+		var sf = value / 6.3;
 		return sf * 13.212 * Math.pow(person.age(date).years, -0.134); // power regression of [1]
 	},
 	associations(person, date, val) {

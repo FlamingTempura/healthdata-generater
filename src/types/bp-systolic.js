@@ -1,14 +1,17 @@
-import { bell, noise, HOUR, DAY, MONTH, YEAR } from '../utils';
+import { rand, bell, noise, HOUR, DAY, MONTH, YEAR } from '../utils';
 
 export default {
-	id: 'bp_systolic',
+	id: 'bp-systolic',
 	name: 'Systolic blood pressure',
 	unit: 'mmHg',
 	description: 'Systolic blood pressure',
 	thresholds() {
-		return { min: 50, max: 250 };
+		return {
+			min: Math.round(rand(45, 55)),
+			normal: Math.round(rand(100, 120)),
+			max: Math.round(rand(140, 250))
+		};
 	},
-	initial() { return 110; },
 	associations(person, date, val) {
 		return val; // TODO physical activity
 	},

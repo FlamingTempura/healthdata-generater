@@ -1,20 +1,16 @@
-import { bell, noise, DAY } from '../utils';
+import { weightedPick } from '../utils';
+
+const prescriptions = [
+	[null, 1],
+	['warfarin', 1],
+	['aspirin', 1],
+	['paracetemol', 1]
+];
 
 export default {
 	id: 'prescription',
 	name: 'Drug prescription',
 	description: 'A new prescription or change of a prescription for a drug',
-	thresholds() {
-		return { min: 0 };
-	},
-	initial() {
-		return 0;
-	},
-	associations(person, date, val) {
-		return val;
-	},
-	fluctuations(person, date, val) {
-		return val +
-		       0.3 * bell(noise(date, DAY), 8); // normal fluctuation
-	}
+	initial() { return weightedPick(prescriptions); },
+	filter(val) { return val !== null; }
 };

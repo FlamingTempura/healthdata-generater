@@ -1,16 +1,19 @@
-import { bell, noise, DAY, YEAR } from '../utils';
+import { rand, bell, noise, DAY, YEAR } from '../utils';
 
 export default {
-	id: 'intake',
+	id: 'caloric-intake',
 	name: 'Caloric intake',
 	unit: 'kcal',
 	description: 'Calories consumed.',
 	thresholds() {
-		return { min: 0 };
+		return {
+			min: 0,
+			normal: Math.round(rand(2000, 3500))
+		};
 	},
-	initial(person, date) {
-		var age = person.age(date);
-		var sf = (person.sex === 'female' ? 0.9 : 1) * person.normalIntake / 2000;
+	initial(person, date, val) {
+		var age = person.age(date),
+			sf = (person.sex === 'female' ? 0.9 : 1) * val / 2000;
 		return sf * (age.years < 18 ? 1000 + age.years * (1600 / 14) :
 			   age.years < 40 ? 1000 - (age.years - 68) / 40 * 1600 : 2000);
 	},

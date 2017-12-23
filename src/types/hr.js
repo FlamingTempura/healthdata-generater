@@ -1,22 +1,24 @@
-import { bell, noise, HOUR, avg, times, MINUTE, YEAR } from '../utils';
+import { rand, bell, noise, HOUR, avg, times, MINUTE, YEAR } from '../utils';
 
 export default {
 	id: 'hr',
 	name: 'Heart rate',
 	unit: 'bpm',
 	description: 'Heart rate',
-	thresholds(person, date) {
-		var age = person.age(date);
-		return { min: 40, max: 220 - age.years };
-	},
-	initial(person) {
-		return person.restingHeartRate;
+	thresholds() {
+		return {
+			min: 40,
+			normal: Math.round(rand(50, 70)),
+			max: 220
+		};
 	},
 	associations(person, date, val) {
-		var burn = avg(times(5, function (i) {
-			return person.sample('caloric_burn', new Date(date.getTime() - i * 10 * MINUTE));
+		var burn = avg(times(5, i => {
+			//console.log('q',person.sample('caloric-burn', new Date(date.getTime() - i * 10 * MINUTE)) )
+			return person.sample('caloric-burn', new Date(date.getTime() - i * 10 * MINUTE));
 		}));
-		return val + burn / person.avgBurn * 8;
+		//return val + burn / val * 8;
+		return val;
 	},
 	fluctuations(person, date, val) {
 		return val +

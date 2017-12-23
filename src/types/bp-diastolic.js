@@ -1,14 +1,17 @@
-import { bell, noise, HOUR, DAY, MONTH, YEAR } from '../utils';
+import { rand, bell, noise, HOUR, DAY, MONTH, YEAR } from '../utils';
 
 export default {
-	id: 'bp_diastolic',
+	id: 'bp-diastolic',
 	name: 'Diastolic blood pressure',
 	unit: 'mmHg',
 	description: 'Diastolic blood pressure',
 	thresholds() {
-		return { min: 30, max: 140 };
+		return {
+			min: Math.round(rand(28, 42)),
+			normal: Math.round(rand(60, 80)),
+			max: Math.round(rand(130, 145))
+		};
 	},
-	initial() { return 70; },
 	associations(person, date, val) {
 		return val; // TODO: physical activity
 	},

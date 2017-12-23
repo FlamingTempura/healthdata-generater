@@ -1,20 +1,15 @@
-import { bell, noise, DAY } from '../utils';
+import { weightedPick } from '../utils';
+
+const procedures = [
+	[null, 5],
+	['ablation', 2],
+	['bypass', 1]
+];
 
 export default {
 	id: 'procedure',
 	name: 'Clinical procedure',
 	description: 'A clinical procedure, such as surgery or blood test.',
-	thresholds() {
-		return { min: 0 };
-	},
-	initial() {
-		return 0;
-	},
-	associations(person, date, val) {
-		return val;
-	},
-	fluctuations(person, date, val) {
-		return val +
-		       0.3 * bell(noise(date, DAY), 25); // normal fluctuation
-	}
+	initial() { return weightedPick(procedures); },
+	filter(val) { return val !== null; }
 };

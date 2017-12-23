@@ -1,4 +1,4 @@
-import { bell, noise, sum, times, avg, DAY, WEEK, YEAR } from '../utils';
+import { rand, bell, noise, sum, times, avg, DAY, WEEK, YEAR } from '../utils';
 
 export default {
 	id: 'weight',
@@ -6,11 +6,16 @@ export default {
 	unit: 'kg',
 	description: 'Body weight measure',
 	thresholds() {
-		return { min: 2, max: 500 };
+		let normalWeight = Math.round(rand(60, 100));
+		return {
+			min: 2,
+			normal: normalWeight,
+			max: normalWeight * 2.5
+		};
 	},
-	initial(person, date) {
+	initial(person, date, value) {
 		var age = person.age(date),
-			sf = person.normalWeight / 93;
+			sf = value / 93;
 		return sf * (age.months <= 3 ? 3.25 : // Weech's formula
 			age.years <= 1 ? (age.months + 9) / 2 : // Weech
 			age.years <= 6 ? age.years * 2 + 8 : // Weech
@@ -21,10 +26,10 @@ export default {
 	associations(person, date, val) { // weight
 		var t = date.getTime();
 		var intake = avg(times(30, i => {
-			return person.sample('intake', new Date(t - (i + 6) * DAY));
+			return person.sample('caloric-intake', new Date(t - (i + 6) * DAY));
 		}));
 		var activity = sum(times(30, i => {
-			return person.sample('caloric_burn', new Date(t - (i + 4) * DAY));
+			return person.sample('caloric-burn', new Date(t - (i + 4) * DAY));
 		}));
 		return val + intake / 200 - bell(Math.min(1, activity / 200)) * 4;
 	},

@@ -124,20 +124,20 @@ ID | Name | Unit
 ---|------|------
 weight | Body weight | kg
 sleep | Sleep | hours
-satisfaction | Life satisfaction | 
+satisfaction | Life satisfaction | %
 procedure | Clinical procedure | 
 prescription | Drug prescription | 
-palpitations | Palpitations | severity
+symptom-palpitations | Palpitations | severity
 medicate | Dosage | %
 inr | International Normalized Ratio (INR) | 
 height | Height | cm
 hr | Heart rate | bpm
 diagnosis | Diagnosis | 
-intake | Caloric intake | kcal
-caloric_burn | Caloric burn | kcal
-breathlessness | Breathlessness | severity
-bp_systolic | Systolic blood pressure | mmHg
-bp_diastolic | Diastolic blood pressure | mmHg
+caloric-intake | Caloric intake | kcal
+caloric-burn | Caloric burn | kcal
+symptom-breathlessness | Breathlessness | severity
+bp-systolic | Systolic blood pressure | mmHg
+bp-diastolic | Diastolic blood pressure | mmHg
 
 [//]: # (TYPES!)
 
@@ -147,18 +147,17 @@ bp_diastolic | Diastolic blood pressure | mmHg
 
 ID | Name | Description | Types | Precision
 ---|------|-------------|-------|----------
-palpitations | Symptom diary | Person recorded an episode of palpitations. | palpitations | 
-breathlessness | Symptom diary | Person recorded an episode of breathlessness. | breathlessness | 
+symptom-diary | Symptom diary | Person recorded an episode of palpitations. | symptom-palpitations, symptom-breathlessness | 1
 scales | Weighing scales | Consumer analog weighing scales. | weight | 0.5
 medicate | Medication diary | The person took their medication and recorded it. | medicate | 0.01
-inr_reader | INR reader | Consumer INR reader. | inr | 
-height manual | Tape measure. | Tape measure. | height | 0.5
-fitbit-step-counter | Fitbit Surge | A wearable device which records steps through motion sensors. | caloric_burn | 
-fitbit-sleep | Fitbit Surge | A wearable device which records sleep through motion sensors. | sleep | 0.1
-fitbit - intake | Fitbit App | An app which can be used with the Fitbit device to record diet. | intake | 
-daylio - mood | Daylio app | A mood diary app. | satisfaction | 
+inr-reader | INR reader | Consumer INR reader. | inr | 0.01
+height-manual | Tape measure. | Tape measure. | height | 0.5
+fitbit-step-counter | Fitbit Surge | A wearable device which records steps through motion sensors. | caloric-burn | 1
+fitbit-sleep | Fitbit Surge | A wearable device which records sleep through motion sensors. | sleep | 0.2
+fitbit-intake | Fitbit App | An app which can be used with the Fitbit device to record diet. | caloric-intake | 1
+daylio-mood | Daylio app | A mood diary app. | satisfaction | 10
 clinical-visit | Clinical visit | Visit to a clinic or hospital | diagnosis, procedure, prescription | 
-valuemed-bp | ValueMed Blood Pressure Cuff | A cheap consumer blood pressure cuff. | bp_diastolic, bp_systolic | 2
+valuemed-bp | ValueMed Blood Pressure Cuff | A cheap consumer blood pressure cuff. | bp-diastolic, bp-systolic | 2
 iwatch-hr | Apple Watch | Apple Watch smartwatch heart rate monitor. The heart rate is read using light sensors. | hr | 1
 
 [//]: # (SOURCES!)

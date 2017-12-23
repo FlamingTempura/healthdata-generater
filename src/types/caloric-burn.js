@@ -1,21 +1,23 @@
-import { bell, noise, HOUR, MINUTE, YEAR } from '../utils';
+import { rand, bell, noise, HOUR, MINUTE, YEAR } from '../utils';
 
 export default {
-	id: 'caloric_burn',
+	id: 'caloric-burn',
 	name: 'Caloric burn',
 	unit: 'kcal',
 	description: 'Calories burned, for example, through exercise',
-	thresholds(person) {
-		return { min: 800, max: person.avgBurn * 3 };
+	thresholds() {
+		let avgBurn = Math.round(rand(1500, 3000));
+		return {
+			min: Math.round(rand(750, 950)),
+			normal: avgBurn,
+			max: Math.round(rand(avgBurn * 2.5, avgBurn * 3.5))
+		};
 	},
-	initial(person) {
-		return person.avgBurn;
-	},
-	fluctuations(person, date) {
-		let longTermActivityChanges = person.avgBurn * (0.9 + noise(date, YEAR) * 0.2),
-			routineActivity = 1 * person.avgBurn * Math.abs(noise(date, MINUTE)),
-			sporadicActivity = 1 * person.avgBurn * bell(noise(date, HOUR), 19);
+	fluctuations(person, date, val) {
+		let longTermActivityChanges = val * (0.9 + noise(date, YEAR) * 0.2),
+			routineActivity = 1 * val * Math.abs(noise(date, MINUTE)),
+			sporadicActivity = 1 * val * bell(noise(date, HOUR), 19);
 		return longTermActivityChanges + routineActivity + sporadicActivity +
-			person.avgBurn / 24 * 60 * noise(date, MINUTE);
+			val / 24 * 60 * noise(date, MINUTE);
 	}
 };

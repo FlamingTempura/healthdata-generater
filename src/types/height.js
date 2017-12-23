@@ -1,4 +1,4 @@
-import { bell, noise, DAY } from '../utils';
+import { rand, bell, noise, DAY } from '../utils';
 
 export default {
 	id: 'height',
@@ -6,15 +6,17 @@ export default {
 	unit: 'cm',
 	description: 'Height measurement',
 	thresholds(person) {
-		let sf = (person.sex === 'female' ? 0.96 : 1) * person.normalHeight / 167;
+		let normalHeight = Math.round(rand(140, 170)),
+			sf = (person.sex === 'female' ? 0.96 : 1) * normalHeight / 167;
 		return {
-			min: sf * 50,
-			max: sf * 250
+			min: Math.round(sf * 50 * 10) / 10,
+			normal: Math.round(sf * normalHeight * 10) / 10,
+			max: Math.round(sf * normalHeight * 1.1 * 10) / 10
 		};
 	},
-	initial(person, date) {
+	initial(person, date, value) {
 		let age = person.age(date),
-			sf = (person.sex === 'female' ? 0.96 : 1) * person.normalHeight / 167;
+			sf = (person.sex === 'female' ? 0.96 : 1) * value / 167;
 		return sf * (age.months < 3 ? age.months * 10 + 50 : // Weech's formula
 			age.years <= 14 ? age.years * 6 + 77 : // Weech
 			age.years <= 19 ? age.years * 2 + 135 : 173); // guess

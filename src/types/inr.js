@@ -5,10 +5,11 @@ export default {
 	name: 'International Normalized Ratio (INR)',
 	description: 'The result (in seconds) for a prothrombin time performed on a normal individual will vary according to the type of analytical system employed.',
 	thresholds() {
-		return { min: 1.6, max: 8 };
-	},
-	initial() {
-		return 2.5;
+		return {
+			min: 1.6,
+			normal: 2.5,
+			max: 8
+		};
 	},
 	associations(person, date, val) {
 		return val;
